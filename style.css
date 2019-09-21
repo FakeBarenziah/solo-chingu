@@ -1,0 +1,16 @@
+#content {
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #cc3 0%, #bd6 20%, #ac4 35%, #997 45%, #a5a 50%, #a3d 65%, #88f 85%)
+}
+#content h1 {
+  font-size: 2em;
+}
+#content h2 {
+  font-size: 1em;
+}
