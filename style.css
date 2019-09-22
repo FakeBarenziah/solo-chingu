@@ -29,3 +29,7 @@ body {
   min-height: 1.2em;
   border: 3px solid black;
 }
+#info{
+  display: flex;
+  flex-direction: row;
+}

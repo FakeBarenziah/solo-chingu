@@ -32,6 +32,8 @@ function shuffle() {
 
 shuffle();
 
+let openTurn = false;
+
 const turnStatus = {
   shownCards: [],
   matchesMade: [],
@@ -43,11 +45,19 @@ const turnStatus = {
       const cardB = this.shownCards.pop();
       if (cardA === cardB && !this.matchesMade.includes(cardA)) {
         this.matches += 1;
+        document.getElementById("match-num").innerHTML = this.matches;
+        openTurn = false;
         this.matchesMade.push(cardA);
         if (this.matches === 8) {
           alert("you win!");
+          this.matchesMade = [];
+          this.turnBack();
+          this.matches = 0;
+          this.turnsTaken = 0;
           shuffle();
         }
+      } else {
+        openTurn = true;
       }
       this.turnsTaken += 1;
       setTimeout(this.turnBack, 2200);
@@ -60,17 +70,16 @@ const turnStatus = {
         each.innerHTML = "";
       }
     });
+    openTurn = false;
   }
 };
 
 function clickHandler(event) {
   const symbol = event.target.dataset.symbol;
-  if (!event.target.innerHTML) {
+  if (!event.target.innerHTML && !openTurn) {
     event.target.innerHTML = symbol;
     turnStatus.shownCards.push(symbol);
     turnStatus.checkMatch();
-    console.log(turnStatus.shownCards);
-    console.log(turnStatus.matches);
   }
 }
 
@@ -80,3 +89,5 @@ cardDeck.forEach(each => {
   div.addEventListener("click", clickHandler);
   gameBox.appendChild(div);
 });
+
+document.getElementById("match-num").innerHTML = turnStatus.matches;
