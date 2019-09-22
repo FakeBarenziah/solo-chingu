@@ -24,6 +24,7 @@ const mainCards = [
 ];
 
 /*
+Shuffle:
 If there are nodes in the gameBox already, remove them.
 Make a deck of cards by adding the unicode characters in a random order.
 Add them all to the gameBox.
@@ -49,18 +50,10 @@ function shuffle() {
 
 shuffle();
 
-/*
-The openTurn flag prevents the player from clicking
-more than two cards to display at a time.
-*/
-
-let openTurn = false;
-
 let timer = false;
 
 /*
 The turnStatus object manages the state of the game.
-
 */
 
 const turnStatus = {
@@ -70,27 +63,31 @@ const turnStatus = {
   matches: 0,
   checkMatch: function() {
     if (this.shownCards.length === 2) {
+      this.turnsTaken += 1;
+      turnNum.innerHTML = this.turnsTaken;
       const cardA = this.shownCards.pop();
       const cardB = this.shownCards.pop();
-      if (cardA === cardB && !this.matchesMade.includes(cardA)) {
+      if (cardA === cardB) {
         this.matches += 1;
         matchNum.innerHTML = this.matches;
         this.matchesMade.push(cardA);
-        openTurn = false;
         if (this.matches === 8) {
-          alert("You won!\n\nPlay Again!\n\u2b07");
+          alert(
+            `You won!\nYou found all eight pairs in ${
+              this.turnsTaken
+            } turns.\n\nPlay Again!\n\u2b07`
+          );
           this.newGame();
           return;
         }
       } else {
-        openTurn = true;
         timer = setTimeout(this.turnBack, 2500);
       }
-      this.turnsTaken += 1;
-      turnNum.innerHTML = this.turnsTaken;
       if (this.turnsTaken === 12) {
         alert(
-          "Sorry! You need to make all eight matches in twelve turns or fewer. \n\nTry again!\n\u2b07"
+          `Sorry! You need to make all eight matches in twelve turns or fewer. \nYou made ${
+            this.matches
+          }.\n\nTry again!\n\u2b07`
         );
         this.newGame();
       }
@@ -103,7 +100,6 @@ const turnStatus = {
         each.innerHTML = "";
       }
     });
-    openTurn = false;
   },
   newGame: function() {
     if (timer) {
