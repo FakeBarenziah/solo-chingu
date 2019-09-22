@@ -1,7 +1,7 @@
 const gameBox = document.getElementById("game-area");
 
 // A deck of eight pairs of unicode characters
-const cardDeck = [
+const allCards = [
   "\u2620",
   "\u2620",
   "\u2744",
@@ -19,6 +19,19 @@ const cardDeck = [
   "\u2714",
   "\u2714"
 ];
+
+let cardDeck;
+
+function shuffle() {
+  cardDeck = [];
+  for (let i = 16; i; i--) {
+    const cardIdx = Math.floor(Math.random() * i);
+    cardDeck.push(allCards.splice(cardIdx, 1));
+  }
+}
+
+shuffle();
+
 const turnStatus = {
   shownCards: [],
   matchesMade: [],
@@ -33,10 +46,11 @@ const turnStatus = {
         this.matchesMade.push(cardA);
         if (this.matches === 8) {
           alert("you win!");
+          shuffle();
         }
       }
       this.turnsTaken += 1;
-      setTimeout(this.turnBack, 2000);
+      setTimeout(this.turnBack, 2200);
     }
   },
   turnBack: function() {
@@ -51,7 +65,7 @@ const turnStatus = {
 
 function clickHandler(event) {
   const symbol = event.target.dataset.symbol;
-  if (!turnStatus.matchesMade.includes(symbol)) {
+  if (!event.target.innerHTML) {
     event.target.innerHTML = symbol;
     turnStatus.shownCards.push(symbol);
     turnStatus.checkMatch();
