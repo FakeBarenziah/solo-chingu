@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(135deg, #cc3 0%, #bd6 20%, #ac4 35%, #997 45%, #a5a 50%, #a3d 65%, #88f 85%)
+  background: linear-gradient(90deg, #cc3 0%, #bd6 15%, #ac4 30%, #a5a 50%, #a3d 65%, #88f 85%, #cc3 100%)
 }
 #content {
   font-family: sans-serif;
@@ -18,7 +18,7 @@ body {
   margin-top: -8px
 }
 #game-area {
-  font-size: 5em;
+  font-size: 4.5em;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -30,6 +30,10 @@ body {
   border: 3px solid black;
 }
 #info{
+  height: 3.5em;
+  width: 50vw;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
