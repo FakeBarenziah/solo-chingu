@@ -1,3 +1,6 @@
+body {
+  background: linear-gradient(135deg, #cc3 0%, #bd6 20%, #ac4 35%, #997 45%, #a5a 50%, #a3d 65%, #88f 85%)
+}
 #content {
   font-family: sans-serif;
   display: flex;
@@ -6,11 +9,23 @@
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #cc3 0%, #bd6 20%, #ac4 35%, #997 45%, #a5a 50%, #a3d 65%, #88f 85%)
 }
 #content h1 {
   font-size: 2em;
 }
 #content h2 {
   font-size: 1em;
+  margin-top: -8px
+}
+#game-area {
+  font-size: 5em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-gap: 0.2em;
+}
+#game-area div{
+  min-width: 1em;
+  min-height: 1.2em;
+  border: 3px solid black;
 }
