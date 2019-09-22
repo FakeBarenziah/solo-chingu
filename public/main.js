@@ -78,18 +78,20 @@ const turnStatus = {
         this.matchesMade.push(cardA);
         openTurn = false;
         if (this.matches === 8) {
-          alert("you win!");
+          alert("You won!\n\nPlay Again!\n\u2b07");
           this.newGame();
           return;
         }
       } else {
         openTurn = true;
-        timer = setTimeout(this.turnBack, 2350);
+        timer = setTimeout(this.turnBack, 2500);
       }
       this.turnsTaken += 1;
       turnNum.innerHTML = this.turnsTaken;
-      if (this.turnsTaken === 8) {
-        alert("you lose!");
+      if (this.turnsTaken === 12) {
+        alert(
+          "Sorry! You need to make all eight matches in twelve turns or fewer. \n\nTry again!\n\u2b07"
+        );
         this.newGame();
       }
     }
@@ -104,7 +106,10 @@ const turnStatus = {
     openTurn = false;
   },
   newGame: function() {
-    if (timer) clearTimeout(timer);
+    if (timer) {
+      clearTimeout(timer);
+      timer = false;
+    }
     this.matchesMade = [];
     this.turnBack();
     this.matches = 0;
@@ -117,7 +122,12 @@ const turnStatus = {
 
 function clickHandler(event) {
   const symbol = event.target.dataset.symbol;
-  if (!event.target.innerHTML && !openTurn) {
+  if (timer) {
+    clearTimeout(timer);
+    timer = false;
+    turnStatus.turnBack();
+  }
+  if (!event.target.innerHTML) {
     event.target.innerHTML = symbol;
     turnStatus.shownCards.push(symbol);
     turnStatus.checkMatch();
