@@ -1,4 +1,6 @@
 const gameBox = document.getElementById("game-area");
+const matchNum = document.getElementById("match-num");
+const turnNum = document.getElementById("turn-num");
 
 // A deck of eight pairs of unicode characters
 const allCards = [
@@ -20,6 +22,8 @@ const allCards = [
   "\u2714"
 ];
 
+// Make a deck of cards by adding the unicode characters in a random order
+
 let cardDeck;
 
 function shuffle() {
@@ -32,7 +36,17 @@ function shuffle() {
 
 shuffle();
 
+/*
+The openTurn flag prevents the player from clicking
+more than two cards to display at a time.
+*/
+
 let openTurn = false;
+
+/*
+The turnStatus object manages the state of the game.
+
+*/
 
 const turnStatus = {
   shownCards: [],
@@ -45,22 +59,26 @@ const turnStatus = {
       const cardB = this.shownCards.pop();
       if (cardA === cardB && !this.matchesMade.includes(cardA)) {
         this.matches += 1;
-        document.getElementById("match-num").innerHTML = this.matches;
-        openTurn = false;
+        matchNum.innerHTML = this.matches;
         this.matchesMade.push(cardA);
+        openTurn = false;
         if (this.matches === 8) {
           alert("you win!");
           this.matchesMade = [];
           this.turnBack();
           this.matches = 0;
           this.turnsTaken = 0;
+          matchNum.innerHTML = this.matches;
+          turnNum.innerHTML = this.turnsTaken;
           shuffle();
+          return;
         }
       } else {
         openTurn = true;
+        setTimeout(this.turnBack, 2200);
       }
       this.turnsTaken += 1;
-      setTimeout(this.turnBack, 2200);
+      turnNum.innerHTML = this.turnsTaken;
     }
   },
   turnBack: function() {
@@ -90,4 +108,5 @@ cardDeck.forEach(each => {
   gameBox.appendChild(div);
 });
 
-document.getElementById("match-num").innerHTML = turnStatus.matches;
+matchNum.innerHTML = turnStatus.matches;
+turnNum.innerHTML = turnStatus.turnsTaken;
