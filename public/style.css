@@ -1,4 +1,5 @@
 body {
+  color: #010;
   background: linear-gradient(90deg, #55f 0%, #76e 15%, #95d 30%, #b5b 50%, #a3d 65%, #97f 85%, #55f 100%);
 }
 #content {
@@ -7,8 +8,8 @@ body {
   align-items: center;
   text-align: center;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
+  width: 90vw;
+  height: 90vh;
 }
 #content h1 {
   font-size: 2em;
@@ -24,12 +25,17 @@ body {
   grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-gap: 0.2em;
 }
-#game-area div{
+#game-area div {
   min-width: 1em;
   min-height: 1.2em;
-  border: 3px solid black;
+  border: 3px solid #010;
+  transform: rotate(180deg);
+  transition: transform 200ms linear;
 }
-#info{
+#game-area div.flip {
+  transform: rotate(0deg);
+}
+#info {
   height: 3.5em;
   width: 50vw;
   display: flex;

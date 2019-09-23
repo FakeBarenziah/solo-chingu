@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 const gameBox = document.getElementById("game-area");
 const matchNum = document.getElementById("match-num");
 const turnNum = document.getElementById("turn-num");
@@ -44,6 +45,7 @@ function shuffle() {
     const div = document.createElement("DIV");
     div.setAttribute("data-symbol", each);
     div.addEventListener("click", clickHandler);
+    div.addEventListener("transitionend", iconShow);
     gameBox.appendChild(div);
   });
 }
@@ -87,27 +89,23 @@ const turnStatus = {
         alert(
           `Sorry! You need to make all eight matches in twelve turns or fewer. \nYou made ${
             this.matches
-          }.\n\nTry again!\n\u2b07`
+          } matches.\n\nTry again!\n\u2b07`
         );
         this.newGame();
       }
     }
   },
   turnBack: function() {
-    const unmatched = gameBox.querySelectorAll("div");
+    const unmatched = [...gameBox.querySelectorAll("div")].filter(
+      each => !turnStatus.matchesMade.includes(each.dataset.symbol)
+    );
     unmatched.forEach(each => {
-      if (!turnStatus.matchesMade.includes(each.dataset.symbol)) {
-        each.innerHTML = "";
-      }
+      each.classList.remove("flip");
+      each.innerHTML = "";
     });
   },
   newGame: function() {
-    if (timer) {
-      clearTimeout(timer);
-      timer = false;
-    }
     this.matchesMade = [];
-    this.turnBack();
     this.matches = 0;
     this.turnsTaken = 0;
     matchNum.innerHTML = this.matches;
@@ -117,16 +115,25 @@ const turnStatus = {
 };
 
 function clickHandler(event) {
-  const symbol = event.target.dataset.symbol;
+  const card = event.target;
   if (timer) {
     clearTimeout(timer);
     timer = false;
     turnStatus.turnBack();
   }
-  if (!event.target.innerHTML) {
-    event.target.innerHTML = symbol;
-    turnStatus.shownCards.push(symbol);
+  if (!card.innerHTML) {
+    card.classList.add("flip");
+    turnStatus.shownCards.push(card.dataset.symbol);
     turnStatus.checkMatch();
+  }
+}
+
+function iconShow(event) {
+  const card = event.target;
+  if (!card.innerHTML) {
+    card.innerHTML = card.dataset.symbol;
+  } else {
+    card.innerHTML = "";
   }
 }
 
