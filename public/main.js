@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 const gameBox = document.getElementById("game-area");
 const matchNum = document.getElementById("match-num");
 const turnNum = document.getElementById("turn-num");
