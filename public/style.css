@@ -29,10 +29,12 @@ button:active{
 }
 #content h1 {
   font-size: 2em;
+  padding: 0px;
 }
 #content h2 {
+  margin: 0px auto;
   font-size: 1em;
-  margin-top: -8px
+  margin-top: -8px;
 }
 #game-area {
   width: 100%;
