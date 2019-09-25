@@ -44,6 +44,7 @@ button:active{
   grid-template-columns: minmax(1rem, 1fr) minmax(1rem, 1fr) minmax(1rem, 1fr) minmax(1rem, 1fr);
   grid-template-rows: minmax(1rem, 1fr) minmax(1rem, 1fr) minmax(1rem, 1fr) minmax(1rem, 1fr);
   grid-gap: 1rem;
+  margin: 0px auto;
 }
 #game-area div{
   width: 95%;
@@ -57,7 +58,7 @@ button:active{
   text-align: center;
 }
 #info{
-  height: 3em;
+  height: 50px;
   width: 100vw;
   max-width: 500px;
   display: flex;
@@ -67,7 +68,7 @@ button:active{
   padding: 5px;
 }
 .spacer{
-  width:10%;
+  width:5%;
 }
 .info-box h2{
   display: inline;
